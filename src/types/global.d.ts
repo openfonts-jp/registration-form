@@ -22,6 +22,7 @@ interface FormItemBase {
   title: string;
   description?: string;
   required?: boolean;
+  json_path?: string;
 }
 
 interface FormHeaderItem extends FormItemBase {
@@ -45,6 +46,7 @@ interface FormListItem extends FormItemBase {
 
 interface FormListChoise {
   text: string;
+  value: string;
   goto?: string;
 }
 

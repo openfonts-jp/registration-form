@@ -16,11 +16,13 @@
   items:
     -
       type: text
+      json_path: $.name
       title: フォント名
       description: フォントの名前を入力してください
       required: true
     -
       type: text
+      json_path: $.id
       title: フォントID
       description: フォント名を英数字（小文字，ハイフン可）のみで入力してください
       required: true
@@ -30,22 +32,35 @@
         help: 英数字（小文字，ハイフン可）のみで入力してください
     -
       type: text
+      json_path: $.version
       title: バージョン
       description: フォントのバージョンを入力してください
       required: true
     -
       type: list
+      json_path: $.categories[0]
       title: カテゴリ
       description: フォントの種類を選択してください
       required: true
       choices:
-        - text: 明朝
-        - text: ゴシック
-        - text: 丸ゴシック
-        - text: 毛筆
-        - text: その他
+        - 
+          text: 明朝
+          value: Mincho
+        - 
+          text: ゴシック
+          value: Gothic
+        - 
+          text: 丸ゴシック
+          value: MaruGohic
+        - 
+          text: 毛筆
+          value: Brush
+        - 
+          text: その他
+          value: Others
     -
       type: text
+      json_path: $.website
       title: 公開サイト URL
       description: フォントが公開されている Web サイトの URL を入力してください
       required: true
@@ -53,11 +68,13 @@
         type: url
     -
       type: text
+      json_path: $.owners[0]
       title: フォント製作者
       description: フォントを制作した人・組織の名前を入力してください
       required: true
     -
       type: text
+      json_path: $.files[0].from
       title: フォントファイル URL
       description: フォントファイルもしくは圧縮ファイルの URL を入力してください
       required: true
@@ -71,23 +88,29 @@
   items:
     -
       type: list
+      json_path: $.license.id
       title: ライセンスの種類
       required: true
       choices:
         -
           text: SIL Open Font License v1.1
+          value: OFL-1.1
           goto: OFL
         -
           text: M+ License
+          value: Mplus
           goto: Copyright
         -
           text: Apache License v2.0
+          value: Apache-2.0
           goto: Copyright
         -
           text: IPA フォントライセンス v1.0
+          value: IPA
           goto: IPA
         -
           text: その他
+          value: Others
           goto: Other License
 -
   id: OFL
@@ -104,6 +127,7 @@
   items:
     -
       type: paragraph
+      json_path: $.copyrights
       title: コピーライト表記
       description: 上記のコピーライト表記を参考に，予約フォント名を含めて入力してください
       required: true
@@ -124,15 +148,26 @@
   items:
     -
       type: list
+      json_path: $.fallback
       title: ベースとなったフォント
       description: 登録するフォントが元にしたフォントを選択してください
       required: true
       choices:
-        - text: IPAex明朝
-        - text: IPAexゴシック
-        - text: IPA明朝
-        - text: IPAゴシック
-        - text: IPAmj明朝
+        -
+          text: IPAex明朝
+          value: IPAexMincho
+        - 
+          text: IPAexゴシック
+          value: IPAexGothic
+        - 
+          text: IPA明朝
+          value: IPAMincho
+        - 
+          text: IPAゴシック
+          value: IPAGothic
+        - 
+          text: IPAmj明朝
+          value: IPAmjMincho
 -
   id: Other License
   goto: Copyright
@@ -156,6 +191,7 @@
         自由なフォント利用のために，既存の国際的なオープンソースライセンスを採用されることをご検討ください
     -
       type: text
+      json_path: $.license.from
       title: ライセンスが確認できる URL
       description: ライセンス内容が確認できるページもしくはファイル（フォントと同梱して頒布している場合はその圧縮ファイル）の URL を入力してください
       required: true
@@ -171,6 +207,7 @@
   items:
     -
       type: paragraph
+      json_path: $.copyrights
       title: コピーライト表記
       description: '"Copyright" または "(c)" から始まるコピーライト表記を入力してください'
       required: true
@@ -188,6 +225,7 @@
   items:
     -
       type: text
+      json_path: $._.contact
       title: 連絡先
       description: GitHub URL もしくは E-mail アドレス
       validation:

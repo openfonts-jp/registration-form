@@ -8,6 +8,7 @@
     "build": "webpack"
   },
   "devDependencies": {
+    "@types/dot-object": "^1.5.0",
     "@types/google-apps-script": "^0.0.26",
     "@types/js-yaml": "^3.11.2",
     "@types/webpack": "^4.4.8",
@@ -19,5 +20,8 @@
     "webpack-command": "^0.4.1",
     "yaml-loader": "^0.5.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "core-js": "^3.0.0-beta.3",
+    "dot-object": "^1.7.0"
+  }
 }

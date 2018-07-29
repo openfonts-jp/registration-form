@@ -1,3 +1,5 @@
+import 'core-js/features/array/find';
+
 import setup from './setup';
 import onFormSubmit from './onFormSubmit';
 

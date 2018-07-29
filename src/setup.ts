@@ -89,6 +89,7 @@ function setup() {
   const pageRecord: Record<string, GoogleAppsScript.Forms.PageBreakItem> = {};
   const pageWithGoToStore: Array<[string, GoogleAppsScript.Forms.PageBreakItem]> = [];
   const listStore: Array<[Array<FormListChoise>, GoogleAppsScript.Forms.ListItem]> = [];
+  const jsonPathToitemId: Array<{ jsonPath: string; itemId: number }> = [];
 
   for (let idx = 0; idx < structure.length; idx++) {
     const pageInfo = structure[idx];
@@ -108,6 +109,12 @@ function setup() {
       if (info.type === 'list' && item.getType() === FormApp.ItemType.LIST) {
         listStore.push([info.choices, item as any]);
       }
+      if (info.json_path) {
+        jsonPathToitemId.push({
+          jsonPath: info.json_path,
+          itemId: item.getId(),
+        });
+      }
     }
   }
 
@@ -122,6 +129,9 @@ function setup() {
     });
     listItem.setChoices(choiceList);
   }
+
+  const props = PropertiesService.getScriptProperties();
+  props.setProperty('JSON_PATH_TO_ITEM_ID', JSON.stringify(jsonPathToitemId));
 
   ScriptApp.getUserTriggers(form).forEach(trigger => ScriptApp.deleteTrigger(trigger));
   ScriptApp.newTrigger('onFormSubmit')
