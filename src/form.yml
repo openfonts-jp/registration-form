@@ -230,5 +230,5 @@
       description: GitHub URL もしくは E-mail アドレス
       validation:
         type: regexp
-        pattern: /^(https://github.com/[a-zA-Z0-9_-]+|[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)$/
+        pattern: /^(https:\/\/github.com\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)$/
         help: GitHub URL もしくは E-mail アドレス を入力してください
