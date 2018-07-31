@@ -1,6 +1,10 @@
 import dot from 'dot-object';
 import formStructure from './form.yml';
 
+import { GITHUB_TOKEN, GITHUB_REPO_OWNER, GITHUB_REPO_NAME, JSON_PATH_TO_ITEM_ID } from './const';
+import GitHub from './github';
+import { stringify } from './yaml';
+
 interface SubmitEvent {
   authMode: GoogleAppsScript.Script.AuthMode;
   response: GoogleAppsScript.Forms.FormResponse;
@@ -12,16 +16,36 @@ const GITHUB_URL_REGEXP = /^https:\/\/github\.com\/([0-9a-zA-Z_-]+)$/;
 
 function onFormSubmit(ev: SubmitEvent) {
   const responseList = ev.response.getItemResponses();
-  const structure = formStructure as FormStructure;
+  const {
+    info,
+    misc: { contact: githubId },
+  } = parseResponse(responseList);
 
-  const props = PropertiesService.getScriptProperties();
-  const GITHUB_TOKEN = props.getProperty('GITHUB_TOKEN');
-  const jsonPathToItemId: Array<{ jsonPath: string; itemId: number }> = JSON.parse(
-    props.getProperty('JSON_PATH_TO_ITEM_ID'),
-  );
+  const markdown = `
+|フォント名|${info.name}|
+|:--:|:--|
+|フォントID|${info.id}|
+|バージョン|${info.version}|
+|カテゴリ|${info.categories.join('<br/>')}|
+|製作者|${info.owners.join('<br/>')}|
+|Webサイト|${info.website}|
+|フォントファイル URL|${info.files.map(({ from }) => from).join('<br/>')}|
+|ライセンス|${info.license.id}|
+|コピーライト|${info.copyrights.join('<br/>')}|
+|登録状況の通知|${githubId}|
+
+**CHECK LICENSE AND ADD FONT FILE'S NAME TO YAML BEFORE MERGE**
+  `;
+
+  createPullRequest(info, markdown);
+  return;
+}
+
+function parseResponse(responseList: GoogleAppsScript.Forms.ItemResponse[]) {
+  const structure = formStructure as FormStructure;
   const raw: any = {};
 
-  for (const { jsonPath, itemId } of jsonPathToItemId) {
+  for (const { jsonPath, itemId } of JSON_PATH_TO_ITEM_ID) {
     const propName = jsonPath.replace(/^\$\./, '');
     const item = responseList.find(r => r.getItem().getId() === itemId);
     if (!item) {
@@ -31,21 +55,10 @@ function onFormSubmit(ev: SubmitEvent) {
     let response = item.getResponse();
 
     if (item.getItem().getType() === FormApp.ItemType.LIST) {
-      const choices = (() => {
-        for (const page of structure) {
-          if (!page.items) {
-            continue;
-          }
-          const item = page.items.find(item => item.json_path === jsonPath);
-          if (item && 'choices' in item) {
-            return item.choices;
-          }
-        }
-        return undefined;
-      })();
-
-      if (choices) {
-        const selected = choices.find(c => c.text === response.toString());
+      const items = structure.map(page => page.items || []).reduce((all, items) => all.concat(items), []);
+      const found = items.find(item => item.json_path === jsonPath);
+      if (found && 'choices' in found) {
+        const selected = found.choices.find(c => c.text === response.toString());
         response = selected ? selected.value : response;
       }
     }
@@ -69,33 +82,26 @@ function onFormSubmit(ev: SubmitEvent) {
   const misc: any = raw._ || {};
   delete raw._;
 
-  let githubId = misc.contact;
+  return { info, misc };
+}
 
-  const markdown = `
-|フォント名|${info.name}|
-|:--:|:--|
-|フォントID|${info.id}|
-|バージョン|${info.version}|
-|カテゴリ|${info.categories.join('<br/>')}|
-|製作者|${info.owners.join('<br/>')}|
-|Webサイト|${info.website}|
-|フォントファイル URL|${info.files.map(({ from }) => from).join('<br/>')}|
-|ライセンス|${info.license.id}|
-|コピーライト|${info.copyrights.join('<br/>')}|
-|登録状況の通知|${githubId}|
-
-\`\`\`json
-${JSON.stringify(info, null, 2)}
-\`\`\`
-  `;
-
-  UrlFetchApp.fetch(`https://api.github.com/repos/Japont/openfonts-registry/issues?access_token=${GITHUB_TOKEN}`, {
-    method: 'post',
-    contentType: 'application/json',
-    payload: JSON.stringify({
-      title: `Add ${info.name}`,
-      body: markdown,
-    }),
+function createPullRequest(info: PackageInfo, markdown: string) {
+  const packageId = info.id;
+  const github = new GitHub(GITHUB_TOKEN, {
+    owner: GITHUB_REPO_OWNER,
+    name: GITHUB_REPO_NAME,
+  });
+  const commitSha = github.getCommitSha('master');
+  github.createBranch(commitSha, packageId);
+  github.uploadFile(
+    packageId,
+    `files/${packageId}.yml`,
+    `[skip ci] Add ${packageId}`,
+    Utilities.base64Encode(stringify(info), Utilities.Charset.UTF_8),
+  );
+  github.createPullRequest(packageId, 'master', {
+    title: `Add ${packageId}`,
+    body: markdown,
   });
 }
 

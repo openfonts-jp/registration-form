@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "module:babel-preset-gas",
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage"
+      }
+    ]
+  ]
+}

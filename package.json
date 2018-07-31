@@ -8,10 +8,14 @@
     "build": "webpack"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.55",
+    "@babel/preset-env": "^7.0.0-beta.55",
     "@types/dot-object": "^1.5.0",
     "@types/google-apps-script": "^0.0.26",
     "@types/js-yaml": "^3.11.2",
     "@types/webpack": "^4.4.8",
+    "babel-loader": "^8.0.0-beta.4",
+    "babel-preset-gas": "^2.0.0",
     "gas-webpack-plugin": "^0.3.0",
     "json-loader": "^0.5.7",
     "ts-loader": "^4.4.2",
@@ -21,7 +25,7 @@
     "yaml-loader": "^0.5.0"
   },
   "dependencies": {
-    "core-js": "^3.0.0-beta.3",
+    "core-js": "^2.5.7",
     "dot-object": "^1.7.0"
   }
 }

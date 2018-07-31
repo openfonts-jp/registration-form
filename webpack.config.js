@@ -18,7 +18,7 @@ const config = {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
+        use: ['babel-loader', 'ts-loader'],
       },
       {
         test: /\.yml$/,

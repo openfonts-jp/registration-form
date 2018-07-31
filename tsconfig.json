@@ -32,7 +32,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
 
-    // "moduleResolution": "node",
+    "moduleResolution": "node",
     // "baseUrl": "./",
     // "paths": {},
     // "rootDirs": [],
