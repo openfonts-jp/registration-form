@@ -3,7 +3,6 @@ import formStructure from './form.yml';
 
 import { GITHUB_TOKEN, GITHUB_REPO_OWNER, GITHUB_REPO_NAME, JSON_PATH_TO_ITEM_ID } from './const';
 import GitHub from './github';
-import { stringify } from './yaml';
 
 interface SubmitEvent {
   authMode: GoogleAppsScript.Script.AuthMode;
@@ -95,9 +94,9 @@ function createPullRequest(info: PackageInfo, markdown: string) {
   github.createBranch(commitSha, packageId);
   github.uploadFile(
     packageId,
-    `files/${packageId}.yml`,
+    `files/${packageId}.json`,
     `[skip ci] Add ${packageId}`,
-    Utilities.base64Encode(stringify(info), Utilities.Charset.UTF_8),
+    Utilities.base64Encode(`${JSON.stringify(info, null, 2)}\n`, Utilities.Charset.UTF_8),
   );
   github.createPullRequest(packageId, 'master', {
     title: `Add ${packageId}`,
