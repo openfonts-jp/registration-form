@@ -11,7 +11,7 @@ function setup() {
   properties.formItemList = results
     .map(({ items }) => items)
     .reduce((all, items) => all.concat(items), [])
-    .filter(({ item }) => 'json_path' in item)
+    .filter(({ info }) => !!info.json_path)
     .map(({ info, item }) => ({
       jsonPath: info.json_path!,
       itemId: item.getId(),
