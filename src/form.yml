@@ -67,6 +67,25 @@ pages:
             text: その他
             value: Others
       -
+        type: checkbox
+        json_path: $.characters
+        title: 文字種
+        description: フォントに含まれている文字種を選択してください
+        required: true
+        choices:
+          -
+            text: アルファベット
+            value: Alphabets
+          -
+            text: ひらがな
+            value: Hiragana
+          -
+            text: カタカナ
+            value: Katakana
+          -
+            text: 漢字
+            value: Kanji
+      -
         type: text
         json_path: $.website
         title: 公開サイト URL

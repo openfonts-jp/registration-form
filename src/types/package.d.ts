@@ -1,8 +1,11 @@
+type CharacterType = 'Alphabets' | 'Hiragana' | 'Katakana' | 'Kanji';
+
 interface PackageInfo {
   id: string;
   name: string;
   version: string;
   categories: string[];
+  characters: CharacterType[];
   owners: string[];
   files: Array<{
     from: string;

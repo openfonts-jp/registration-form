@@ -102,6 +102,12 @@ class Form {
         item = form.addListItem();
         break;
       }
+      case 'checkbox': {
+        const _item = form.addCheckboxItem();
+        _item.setChoiceValues(itemInfo.choices.map(({ text }) => text));
+        item = _item;
+        break;
+      }
       case 'header': {
         item = form.addSectionHeaderItem();
         break;

@@ -26,6 +26,7 @@ function onFormSubmit(ev: SubmitEvent) {
 |フォントID|${info.id}|
 |バージョン|${info.version}|
 |カテゴリ|${info.categories.join('<br/>')}|
+|文字種|${info.characters.join(',\x20')}|
 |製作者|${info.owners.join('<br/>')}|
 |Webサイト|${info.website}|
 |フォントファイル URL|${info.files.map(({ from }) => from).join('<br/>')}|
@@ -59,6 +60,19 @@ function parseResponse(responseList: GoogleAppsScript.Forms.ItemResponse[]) {
       if (found && 'choices' in found) {
         const selected = found.choices.find(c => c.text === response.toString());
         response = selected ? selected.value : response;
+      }
+    }
+    if (item.getItem().getType() === FormApp.ItemType.CHECKBOX) {
+      response = response
+        .toString()
+        .split(',')
+        .map(v => v.replace(/^\s*|\s*$/g, ''));
+      const items = structure.pages.map(page => page.items || []).reduce((all, items) => all.concat(items), []);
+      const found = items.find(item => item.json_path === jsonPath);
+      if (found && 'choices' in found) {
+        response = (response as string[]).map(text => {
+          return (found.choices.find(c => c.text === text) || { value: text }).value;
+        });
       }
     }
     if (jsonPath === '$.copyrights') {

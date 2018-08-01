@@ -24,7 +24,7 @@ interface FormPage {
   items?: Array<FormItem>;
 }
 
-type FormItem = FormTextItem | FormParagraphItem | FormListItem | FormHeaderItem;
+type FormItem = FormTextItem | FormParagraphItem | FormListItem | FormCheckboxItem | FormHeaderItem;
 
 interface FormItemBase {
   type: string;
@@ -50,6 +50,11 @@ interface FormParagraphItem extends FormItemBase {
 
 interface FormListItem extends FormItemBase {
   type: 'list';
+  choices: Array<FormListChoise>;
+}
+
+interface FormCheckboxItem extends FormItemBase {
+  type: 'checkbox';
   choices: Array<FormListChoise>;
 }
 
