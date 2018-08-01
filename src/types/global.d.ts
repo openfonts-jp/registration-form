@@ -5,7 +5,16 @@ declare module '*.yml' {
 
 declare var global: any;
 
-type FormStructure = Array<FormPage>;
+type FormStructure = {
+  config: FormConfig;
+  pages: Array<FormPage>;
+};
+
+interface FormConfig {
+  progressBar: boolean;
+  showLinkToRespondAgain: boolean;
+  confirmationMessage: string;
+}
 
 interface FormPage {
   id?: string;

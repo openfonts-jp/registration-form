@@ -85,15 +85,18 @@ function setup() {
   const structure = formStructure as FormStructure;
 
   initialize(form);
+  form.setProgressBar(structure.config.progressBar);
+  form.setShowLinkToRespondAgain(structure.config.showLinkToRespondAgain);
+  form.setConfirmationMessage(structure.config.confirmationMessage);
 
   const pageRecord: Record<string, GoogleAppsScript.Forms.PageBreakItem> = {};
   const pageWithGoToStore: Array<[string, GoogleAppsScript.Forms.PageBreakItem]> = [];
   const listStore: Array<[Array<FormListChoise>, GoogleAppsScript.Forms.ListItem]> = [];
   const jsonPathToitemId: Array<{ jsonPath: string; itemId: number }> = [];
 
-  for (let idx = 0; idx < structure.length; idx++) {
-    const pageInfo = structure[idx];
-    const prevPageInfo = structure[idx - 1];
+  for (let idx = 0; idx < structure.pages.length; idx++) {
+    const pageInfo = structure.pages[idx];
+    const prevPageInfo = structure.pages[idx - 1];
     const { page, items } = createPage(form, pageInfo, idx === 0);
 
     if (page) {

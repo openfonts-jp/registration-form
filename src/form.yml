@@ -1,234 +1,242 @@
--
-  title: OpenFonts.jp フォント登録申し込み
-  description: |
-    ● フォント登録は，フォント作成者でなくても大丈夫です
+config:
+  progressBar: true
+  showLinkToRespondAgain: false
+  confirmationMessage: |
+    登録ありがとうございました
 
-    ● 登録できるフォントは，オープンなライセンスで公開されているものに限ります
-    　○ OpenFonts.jp が確認して，条件に満たさない場合は登録されません
+    申し込み状況は https://github.com/openfonts-jp/packages/pulls で確認できます
+pages:
+  -
+    title: OpenFonts.jp フォント登録申し込み
+    description: |
+      ● フォント登録は，フォント作成者でなくても大丈夫です
 
-    ● 申し込み状況は https://github.com/Japont/openfonts-registry/issues で確認できます
-    　○ 既に申し込みされていないか確認してください
+      ● 登録できるフォントは，オープンなライセンスで公開されているものに限ります
+      　○ OpenFonts.jp が確認して，条件に満たさない場合は登録されません
 
-    ● 書体ごとに登録が必要です
-    　○ 例えば，明朝体とゴシック体が一緒に頒布されている場合は，2回登録が必要です
--
-  title: フォント情報
-  items:
-    -
-      type: text
-      json_path: $.name
-      title: フォント名
-      description: フォントの名前を入力してください
-      required: true
-    -
-      type: text
-      json_path: $.id
-      title: フォントID
-      description: フォント名を英数字（小文字，ハイフン可）のみで入力してください
-      required: true
-      validation:
-        type: regexp
-        pattern: /^[0-9a-z-]+$/
-        help: 英数字（小文字，ハイフン可）のみで入力してください
-    -
-      type: text
-      json_path: $.version
-      title: バージョン
-      description: フォントのバージョンを入力してください
-      required: true
-    -
-      type: list
-      json_path: $.categories[0]
-      title: カテゴリ
-      description: フォントの種類を選択してください
-      required: true
-      choices:
-        - 
-          text: 明朝
-          value: Mincho
-        - 
-          text: ゴシック
-          value: Gothic
-        - 
-          text: 丸ゴシック
-          value: MaruGohic
-        - 
-          text: 毛筆
-          value: Brush
-        - 
-          text: その他
-          value: Others
-    -
-      type: text
-      json_path: $.website
-      title: 公開サイト URL
-      description: フォントが公開されている Web サイトの URL を入力してください
-      required: true
-      validation:
-        type: url
-    -
-      type: text
-      json_path: $.owners[0]
-      title: フォント製作者
-      description: フォントを制作した人・組織の名前を入力してください
-      required: true
-    -
-      type: text
-      json_path: $.files[0].from
-      title: フォントファイル URL
-      description: フォントファイルもしくは圧縮ファイルの URL を入力してください
-      required: true
-      validation:
-        type: url
--
-  title: ライセンス
-  description: |
-    OpenFonts.jp では， Web フォントとして配信するため，「再配布」「改変」および「改変後の再配布」が許可されているフォントのみを登録できます
-  goto: Copyright
-  items:
-    -
-      type: list
-      json_path: $.license.id
-      title: ライセンスの種類
-      required: true
-      choices:
-        -
-          text: SIL Open Font License v1.1
-          value: OFL-1.1
-          goto: OFL
-        -
-          text: M+ License
-          value: Mplus
-          goto: Copyright
-        -
-          text: Apache License v2.0
-          value: Apache-2.0
-          goto: Copyright
-        -
-          text: IPA フォントライセンス v1.0
-          value: IPA
-          goto: IPA
-        -
-          text: その他
-          value: Others
-          goto: Other License
--
-  id: OFL
-  goto: Contact
-  title: SIL Open Font License v1.1
-  description: |
-    SIL OFL では，派生フォントに製作者の定めた予約フォント名を含むことができない旨の規約があります
+      ● 申し込み状況は https://github.com/openfonts-jp/packages/pulls で確認できます
+      　○ 既に申し込みされていないか確認してください
 
-    OpenFonts.jp では，Web フォントを派生フォントとして作成するため，予約フォント名の登録をお願いしています
+      ● 書体ごとに登録が必要です
+      　○ 例えば，明朝体とゴシック体が一緒に頒布されている場合は，2回登録が必要です
+  -
+    title: フォント情報
+    items:
+      -
+        type: text
+        json_path: $.name
+        title: フォント名
+        description: フォントの名前を入力してください
+        required: true
+      -
+        type: text
+        json_path: $.id
+        title: フォントID
+        description: フォント名を英数字（小文字，ハイフン可）のみで入力してください
+        required: true
+        validation:
+          type: regexp
+          pattern: /^[0-9a-z-]+$/
+          help: 英数字（小文字，ハイフン可）のみで入力してください
+      -
+        type: text
+        json_path: $.version
+        title: バージョン
+        description: フォントのバージョンを入力してください
+        required: true
+      -
+        type: list
+        json_path: $.categories[0]
+        title: カテゴリ
+        description: フォントの種類を選択してください
+        required: true
+        choices:
+          - 
+            text: 明朝
+            value: Mincho
+          - 
+            text: ゴシック
+            value: Gothic
+          - 
+            text: 丸ゴシック
+            value: MaruGohic
+          - 
+            text: 毛筆
+            value: Brush
+          - 
+            text: その他
+            value: Others
+      -
+        type: text
+        json_path: $.website
+        title: 公開サイト URL
+        description: フォントが公開されている Web サイトの URL を入力してください
+        required: true
+        validation:
+          type: url
+      -
+        type: text
+        json_path: $.owners[0]
+        title: フォント製作者
+        description: フォントを制作した人・組織の名前を入力してください
+        required: true
+      -
+        type: text
+        json_path: $.files[0].from
+        title: フォントファイル URL
+        description: フォントファイルもしくは圧縮ファイルの URL を入力してください
+        required: true
+        validation:
+          type: url
+  -
+    title: ライセンス
+    description: |
+      OpenFonts.jp では， Web フォントとして配信するため，「再配布」「改変」および「改変後の再配布」が許可されているフォントのみを登録できます
+    goto: Copyright
+    items:
+      -
+        type: list
+        json_path: $.license.id
+        title: ライセンスの種類
+        required: true
+        choices:
+          -
+            text: SIL Open Font License v1.1
+            value: OFL-1.1
+            goto: OFL
+          -
+            text: M+ License
+            value: Mplus
+            goto: Copyright
+          -
+            text: Apache License v2.0
+            value: Apache-2.0
+            goto: Copyright
+          -
+            text: IPA フォントライセンス v1.0
+            value: IPA
+            goto: IPA
+          -
+            text: その他
+            value: Others
+            goto: Other License
+  -
+    id: OFL
+    goto: Contact
+    title: SIL Open Font License v1.1
+    description: |
+      SIL OFL では，派生フォントに製作者の定めた予約フォント名を含むことができない旨の規約があります
 
-    予約フォント名は通常，以下のようなコピーライト表記にて提示されています
+      OpenFonts.jp では，Web フォントを派生フォントとして作成するため，予約フォント名の登録をお願いしています
 
-    Copyright (c) <dates>, <Copyright Holder>, with Reserved Font Name <Reserved Font Name>.
-  items:
-    -
-      type: paragraph
-      json_path: $.copyrights
-      title: コピーライト表記
-      description: 上記のコピーライト表記を参考に，予約フォント名を含めて入力してください
-      required: true
-      validation:
-        type: regexp
-        pattern: /[Rr]eserved/
-        help: 予約フォント名を含めて入力してください
--
-  id: IPA
-  goto: Copyright
-  title: IPA フォントライセンス v1.0
-  description: |
-    IPA フォントライセンスでは，派生フォントをオリジナルフォントに置き換える方法を再配布する義務の規約があります
+      予約フォント名は通常，以下のようなコピーライト表記にて提示されています
 
-    OpenFonts.jp では，Web フォントを派生フォントとして作成するため，オリジナルフォントの登録をお願いしています
+      Copyright (c) <dates>, <Copyright Holder>, with Reserved Font Name <Reserved Font Name>.
+    items:
+      -
+        type: paragraph
+        json_path: $.copyrights
+        title: コピーライト表記
+        description: 上記のコピーライト表記を参考に，予約フォント名を含めて入力してください
+        required: true
+        validation:
+          type: regexp
+          pattern: /[Rr]eserved/
+          help: 予約フォント名を含めて入力してください
+  -
+    id: IPA
+    goto: Copyright
+    title: IPA フォントライセンス v1.0
+    description: |
+      IPA フォントライセンスでは，派生フォントをオリジナルフォントに置き換える方法を再配布する義務の規約があります
 
-    ※ オリジナルフォントとは，そのフォントを生成するにあたって，1番初めにベースとなったフォントのことをいいます
-  items:
-    -
-      type: list
-      json_path: $.fallback
-      title: ベースとなったフォント
-      description: 登録するフォントが元にしたフォントを選択してください
-      required: true
-      choices:
-        -
-          text: IPAex明朝
-          value: IPAexMincho
-        - 
-          text: IPAexゴシック
-          value: IPAexGothic
-        - 
-          text: IPA明朝
-          value: IPAMincho
-        - 
-          text: IPAゴシック
-          value: IPAGothic
-        - 
-          text: IPAmj明朝
-          value: IPAmjMincho
--
-  id: Other License
-  goto: Copyright
-  title: その他のライセンス
-  description: |
-    OpenFonts.jp では， Web フォントとして配信するため，「再配布」「改変」および「改変後の再配布」が許可されているフォントのみを登録できます
+      OpenFonts.jp では，Web フォントを派生フォントとして作成するため，オリジナルフォントの登録をお願いしています
 
-    ライセンス内容を確認したうえで，以下の項目に入力してください
-  items:
-    -
-      type: header
-      title: フォント作成者のかたへ
-      description: |
-        OpenFonts.jp では，広くフォントを利用していただくにあたって， SIL Open Font License を推奨しています
+      ※ オリジナルフォントとは，そのフォントを生成するにあたって，1番初めにベースとなったフォントのことをいいます
+    items:
+      -
+        type: list
+        json_path: $.fallback
+        title: ベースとなったフォント
+        description: 登録するフォントが元にしたフォントを選択してください
+        required: true
+        choices:
+          -
+            text: IPAex明朝
+            value: IPAexMincho
+          - 
+            text: IPAexゴシック
+            value: IPAexGothic
+          - 
+            text: IPA明朝
+            value: IPAMincho
+          - 
+            text: IPAゴシック
+            value: IPAGothic
+          - 
+            text: IPAmj明朝
+            value: IPAmjMincho
+  -
+    id: Other License
+    goto: Copyright
+    title: その他のライセンス
+    description: |
+      OpenFonts.jp では， Web フォントとして配信するため，「再配布」「改変」および「改変後の再配布」が許可されているフォントのみを登録できます
 
-        SIL Open Font License は，フリーソフトウェア財団に認定されている，国際的なライセンスです
-        他にも，フォントによく利用されるライセンスには， M+ LICENSE や Apache License などがあります
+      ライセンス内容を確認したうえで，以下の項目に入力してください
+    items:
+      -
+        type: header
+        title: フォント作成者のかたへ
+        description: |
+          OpenFonts.jp では，広くフォントを利用していただくにあたって， SIL Open Font License を推奨しています
 
-        ご自身で書いた利用規約などは，誤解を与えたり，利用者へ意図しない不利益を与えたりする場合があります
+          SIL Open Font License は，フリーソフトウェア財団に認定されている，国際的なライセンスです
+          他にも，フォントによく利用されるライセンスには， M+ LICENSE や Apache License などがあります
 
-        自由なフォント利用のために，既存の国際的なオープンソースライセンスを採用されることをご検討ください
-    -
-      type: text
-      json_path: $.license.from
-      title: ライセンスが確認できる URL
-      description: ライセンス内容が確認できるページもしくはファイル（フォントと同梱して頒布している場合はその圧縮ファイル）の URL を入力してください
-      required: true
-      validation:
-        type: url
-    -
-      type: paragraph
-      title: ライセンス内容
-      required: true
--
-  id: Copyright
-  title: コピーライト表記
-  items:
-    -
-      type: paragraph
-      json_path: $.copyrights
-      title: コピーライト表記
-      description: '"Copyright" または "(c)" から始まるコピーライト表記を入力してください'
-      required: true
-      validation:
-        type: regexp
-        pattern: /([cC]opyright|\(c\)|©)/
-        help: '"Copyright" または "(c)" を含めてください'
--
-  id: Contact
-  title: 連絡先
-  description: |
-    フォントの登録状況（登録完了・登録失敗）の連絡が欲しい場合は入力してください（必須ではありません）
+          ご自身で書いた利用規約などは，誤解を与えたり，利用者へ意図しない不利益を与えたりする場合があります
 
-    GitHub URL の場合は， GitHub アカウントが issues に紐づくため，アカウント名が公開されます
-  items:
-    -
-      type: text
-      json_path: $._.contact
-      title: 連絡先
-      description: GitHub URL もしくは E-mail アドレス
-      validation:
-        type: regexp
-        pattern: /^(https:\/\/github.com\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)$/
-        help: GitHub URL もしくは E-mail アドレス を入力してください
+          自由なフォント利用のために，既存の国際的なオープンソースライセンスを採用されることをご検討ください
+      -
+        type: text
+        json_path: $.license.from
+        title: ライセンスが確認できる URL
+        description: ライセンス内容が確認できるページもしくはファイル（フォントと同梱して頒布している場合はその圧縮ファイル）の URL を入力してください
+        required: true
+        validation:
+          type: url
+      -
+        type: paragraph
+        title: ライセンス内容
+        required: true
+  -
+    id: Copyright
+    title: コピーライト表記
+    items:
+      -
+        type: paragraph
+        json_path: $.copyrights
+        title: コピーライト表記
+        description: '"Copyright" または "(c)" から始まるコピーライト表記を入力してください'
+        required: true
+        validation:
+          type: regexp
+          pattern: /([cC]opyright|\(c\)|©)/
+          help: '"Copyright" または "(c)" を含めてください'
+  -
+    id: Contact
+    title: 連絡先
+    description: |
+      フォントの登録状況（登録完了・登録失敗）の連絡が欲しい場合は入力してください（必須ではありません）
+
+      GitHub URL の場合は， GitHub アカウントが issues に紐づくため，アカウント名が公開されます
+    items:
+      -
+        type: text
+        json_path: $._.contact
+        title: 連絡先
+        description: GitHub URL もしくは E-mail アドレス
+        validation:
+          type: regexp
+          pattern: /^(https:\/\/github.com\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)$/
+          help: GitHub URL もしくは E-mail アドレス を入力してください

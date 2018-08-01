@@ -54,7 +54,7 @@ function parseResponse(responseList: GoogleAppsScript.Forms.ItemResponse[]) {
     let response = item.getResponse();
 
     if (item.getItem().getType() === FormApp.ItemType.LIST) {
-      const items = structure.map(page => page.items || []).reduce((all, items) => all.concat(items), []);
+      const items = structure.pages.map(page => page.items || []).reduce((all, items) => all.concat(items), []);
       const found = items.find(item => item.json_path === jsonPath);
       if (found && 'choices' in found) {
         const selected = found.choices.find(c => c.text === response.toString());
