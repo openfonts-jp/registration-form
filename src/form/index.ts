@@ -141,3 +141,5 @@ class Form {
     return { item, info: itemInfo };
   }
 }
+
+export default Form;

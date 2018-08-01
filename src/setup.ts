@@ -1,3 +1,4 @@
+import Form from './form';
 import properties from './properties';
 import formStructure from './form.yml';
 
