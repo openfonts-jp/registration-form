@@ -92,7 +92,7 @@ function setup() {
   const pageRecord: Record<string, GoogleAppsScript.Forms.PageBreakItem> = {};
   const pageWithGoToStore: Array<[string, GoogleAppsScript.Forms.PageBreakItem]> = [];
   const listStore: Array<[Array<FormListChoise>, GoogleAppsScript.Forms.ListItem]> = [];
-  const jsonPathToitemId: Array<{ jsonPath: string; itemId: number }> = [];
+  const formItemList: Array<{ jsonPath: string; itemId: number }> = [];
 
   for (let idx = 0; idx < structure.pages.length; idx++) {
     const pageInfo = structure.pages[idx];
@@ -113,7 +113,7 @@ function setup() {
         listStore.push([info.choices, item as any]);
       }
       if (info.json_path) {
-        jsonPathToitemId.push({
+        formItemList.push({
           jsonPath: info.json_path,
           itemId: item.getId(),
         });
@@ -134,7 +134,7 @@ function setup() {
   }
 
   const props = PropertiesService.getScriptProperties();
-  props.setProperty('JSON_PATH_TO_ITEM_ID', JSON.stringify(jsonPathToitemId));
+  props.setProperty('FORM_ITEM_LIST', JSON.stringify(formItemList));
 
   ScriptApp.getUserTriggers(form).forEach(trigger => ScriptApp.deleteTrigger(trigger));
   ScriptApp.newTrigger('onFormSubmit')

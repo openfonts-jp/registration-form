@@ -1,7 +1,7 @@
 import dot from 'dot-object';
 import formStructure from './form.yml';
 
-import { GITHUB_TOKEN, GITHUB_REPO_OWNER, GITHUB_REPO_NAME, JSON_PATH_TO_ITEM_ID } from './const';
+import { GITHUB_TOKEN, GITHUB_REPO_OWNER, GITHUB_REPO_NAME, FORM_ITEM_LIST } from './const';
 import GitHub from './github';
 
 interface SubmitEvent {
