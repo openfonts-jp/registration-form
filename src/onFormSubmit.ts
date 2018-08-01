@@ -22,7 +22,7 @@ function onFormSubmit(ev: SubmitEvent) {
 
   const markdown = `
 |フォント名|${info.name}|
-|:--:|:--|
+|:--|:--|
 |フォントID|${info.id}|
 |バージョン|${info.version}|
 |カテゴリ|${info.categories.join('<br/>')}|
