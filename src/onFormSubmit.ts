@@ -1,7 +1,7 @@
 import dot from 'dot-object';
 import formStructure from './form.yml';
 
-import { GITHUB_TOKEN, GITHUB_REPO_OWNER, GITHUB_REPO_NAME, FORM_ITEM_LIST } from './const';
+import properties from './properties';
 import GitHub from './github';
 
 interface SubmitEvent {
@@ -44,7 +44,7 @@ function parseResponse(responseList: GoogleAppsScript.Forms.ItemResponse[]) {
   const structure = formStructure as FormStructure;
   const raw: any = {};
 
-  for (const { jsonPath, itemId } of FORM_ITEM_LIST) {
+  for (const { jsonPath, itemId } of properties.formItemList) {
     const propName = jsonPath.replace(/^\$\./, '');
     const item = responseList.find(r => r.getItem().getId() === itemId);
     if (!item) {
@@ -86,10 +86,7 @@ function parseResponse(responseList: GoogleAppsScript.Forms.ItemResponse[]) {
 
 function createPullRequest(info: PackageInfo, markdown: string) {
   const packageId = info.id;
-  const github = new GitHub(GITHUB_TOKEN, {
-    owner: GITHUB_REPO_OWNER,
-    name: GITHUB_REPO_NAME,
-  });
+  const github = new GitHub(properties.githubToken, properties.githubRepo);
   const commitSha = github.getCommitSha('master');
   github.createBranch(commitSha, packageId);
   github.uploadFile(
