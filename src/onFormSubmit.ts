@@ -37,7 +37,13 @@ function onFormSubmit(ev: SubmitEvent) {
 **:warning: マージ前に必ずライセンスの確認とフォントファイル名の追加を行ってください**
   `;
 
-  createPullRequest(info, markdown);
+  createPullRequest(
+    {
+      $schema: 'https://schemas.openfonts.jp/package/v01/schema.json',
+      ...info,
+    },
+    markdown,
+  );
   return;
 }
 

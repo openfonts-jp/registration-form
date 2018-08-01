@@ -1,6 +1,7 @@
 type CharacterType = 'Alphabets' | 'Hiragana' | 'Katakana' | 'Kanji';
 
 interface PackageInfo {
+  $schema: string;
   id: string;
   name: string;
   version: string;
