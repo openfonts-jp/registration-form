@@ -34,7 +34,7 @@ function onFormSubmit(ev: SubmitEvent) {
 |コピーライト|${info.copyrights.join('<br/>')}|
 |登録状況の通知|${githubId}|
 
-**:warning: CHECK LICENSE AND ADD FONT FILE'S NAME TO YAML BEFORE MERGE**
+**:warning: マージ前に必ずライセンスの確認とフォントファイル名の追加を行ってください**
   `;
 
   createPullRequest(info, markdown);
