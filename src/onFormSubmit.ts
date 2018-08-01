@@ -44,7 +44,7 @@ function parseResponse(responseList: GoogleAppsScript.Forms.ItemResponse[]) {
   const structure = formStructure as FormStructure;
   const raw: any = {};
 
-  for (const { jsonPath, itemId } of JSON_PATH_TO_ITEM_ID) {
+  for (const { jsonPath, itemId } of FORM_ITEM_LIST) {
     const propName = jsonPath.replace(/^\$\./, '');
     const item = responseList.find(r => r.getItem().getId() === itemId);
     if (!item) {
