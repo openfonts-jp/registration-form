@@ -39,7 +39,7 @@ function onFormSubmit(ev: SubmitEvent) {
 
   createPullRequest(
     {
-      $schema: 'https://schemas.openfonts.jp/package/v01/schema.json',
+      $schema: 'https://schemas.openfonts.jp/package/v02/schema.json',
       ...info,
     },
     markdown,
